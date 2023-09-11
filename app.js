@@ -1,4 +1,5 @@
-let SECRET_NUMBER = 11;
+let SECRET_NUMBER = randomNumber(1, 100);
+
 let userInput = prompt("Guess a number");
 let validNumber;
 let count = 0;
@@ -11,12 +12,16 @@ while (validNumber !== SECRET_NUMBER) {
     : alert(`${userInput} is not a number.`);
 
   if (validNumber > SECRET_NUMBER) {
-    userInput = prompt("Guess Lower.");
+    userInput = prompt(`${validNumber}? wrong.\nGuess Lower.`);
   } else if (validNumber < SECRET_NUMBER) {
-    userInput = prompt("Guess Higher.");
+    userInput = prompt(`${validNumber}? wrong.\nGuess Higher.`);
   } else {
-    alert(`Correct!\n Attempts: ${count}`);
+    alert(`Correct! ${validNumber}.\n Attempts: ${count}`);
   }
+}
+
+function randomNumber(min, max) {
+  return Math.floor(Math.random() * max - min + 1) + min;
 }
 
 debugger;
