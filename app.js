@@ -1,23 +1,34 @@
-let SECRET_NUMBER = randomNumber(1, 100);
+let SECRET_NUMBER = randomNumber(1, 5);
 
-let userInput = prompt("Guess a number");
+let playAgain = false;
+let userName = prompt("What is your name?");
+let userGuess = prompt(`Hello ${userName}, guess a number.`);
 let validNumber;
-let count = 0;
+let guessArr = [];
 
 while (validNumber !== SECRET_NUMBER) {
-  count++;
+  guessArr.push(userGuess);
 
-  Number(userInput) > 0 || Number(userInput) < 0
-    ? (validNumber = Number(userInput))
-    : alert(`${userInput} is not a number.`);
+  Number(userGuess) > 0 || Number(userGuess) < 0
+    ? (validNumber = Number(userGuess))
+    : (userGuess = prompt(`${userGuess} is not a number, enter a NUMBER.`));
 
   if (validNumber > SECRET_NUMBER) {
-    userInput = prompt(`${validNumber}? wrong.\nGuess Lower.`);
-  } else if (validNumber < SECRET_NUMBER) {
-    userInput = prompt(`${validNumber}? wrong.\nGuess Higher.`);
-  } else {
-    alert(`Correct! ${validNumber}.\n Attempts: ${count}`);
+    userGuess = prompt(`Sorry ${userName}, Guess Lower.`);
   }
+
+  if (validNumber < SECRET_NUMBER) {
+    userGuess = prompt(`Sorry ${userName}, Guess Higher.`);
+  }
+
+  if (validNumber === SECRET_NUMBER) {
+    alert(`Correct! \nYour previous guesses were ${guessArr}!`);
+    playAgain = confirm(`Click "OK" to play again!`);
+  }
+}
+
+if (playAgain){
+  location.reload()
 }
 
 function randomNumber(min, max) {
